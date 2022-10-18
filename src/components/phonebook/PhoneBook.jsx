@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { validateName, validateNumber } from './Validate';
@@ -67,3 +68,8 @@ export class PhoneBook extends Component {
     );
   }
 }
+
+initialValues.prototype = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+};

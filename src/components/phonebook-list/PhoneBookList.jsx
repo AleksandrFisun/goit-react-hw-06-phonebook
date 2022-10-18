@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { List, Item, Text, Button } from './PhoneBookList.styled';
 const ContactList = ({ contacts, onDeleteContact }) => (
   <div>
@@ -13,5 +14,9 @@ const ContactList = ({ contacts, onDeleteContact }) => (
     </List>
   </div>
 );
-
+ContactList.prototype = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+};
 export default ContactList;

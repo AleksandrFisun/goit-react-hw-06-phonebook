@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 function validateName(value) {
   let error;
   if (!value) {
@@ -26,3 +27,10 @@ function validateNumber(value) {
   return error;
 }
 export { validateName, validateNumber };
+
+validateName.prototype = {
+  value: PropTypes.string.isRequired,
+};
+validateNumber.prototype = {
+  value: PropTypes.string.isRequired,
+};

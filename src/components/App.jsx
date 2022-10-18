@@ -9,15 +9,18 @@ export class App extends Component {
     contacts: initialContacts,
     filter: '',
   };
-  addContacts = value => {
-    const contact = {
-      id: shortid.generate(),
-      name: value.name,
-      number: value.number,
+  addContacts = ({ name, number, id = shortid() }) => {
+    const { contacts } = this.state;
+    const newContact = {
+      name,
+      number,
+      id,
     };
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-    }));
+    contacts.find(contact => contact.name === name)
+      ? alert(`${name} is already in contacts`)
+      : this.setState(({ contacts }) => ({
+          contacts: [newContact, ...contacts],
+        }));
   };
   handleInputChange = e => {
     this.setState({ filter: e.currentTarget.value });
