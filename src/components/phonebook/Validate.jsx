@@ -31,6 +31,6 @@ export { validateName, validateNumber };
 validateName.prototype = {
   value: PropTypes.string.isRequired,
 };
-validateNumber.prototype = {
+validateNumber.PropTypes = {
   value: PropTypes.string.isRequired,
 };

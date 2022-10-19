@@ -22,6 +22,7 @@ const FormError = ({ name }) => {
 export class PhoneBook extends Component {
   handleSubmit = (values, { resetForm }) => {
     this.props.onSubmit(values);
+    console.log(values);
     resetForm();
   };
 
@@ -69,7 +70,10 @@ export class PhoneBook extends Component {
   }
 }
 
-initialValues.prototype = {
+initialValues.PropTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
+};
+PhoneBook.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
