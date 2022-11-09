@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Wraper, ErrorText, ButtonAdd, Block } from './PhoneBook.styled';
@@ -35,7 +35,6 @@ export function PhoneBook({ onSubmit }) {
     setName('');
     setNumber('');
   };
-  // -------------------------
   const nameInputId = shortid.generate();
   const numberInputId = shortid.generate();
   return (
@@ -81,3 +80,9 @@ export function PhoneBook({ onSubmit }) {
     </Formik>
   );
 }
+PhoneBook.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+FormError.propTypes = {
+  name: PropTypes.string.isRequired,
+};
