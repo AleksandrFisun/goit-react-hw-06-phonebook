@@ -9,8 +9,6 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addContacts(state, action) {
-      console.log(action);
-      console.log(state);
       return { ...state, contacts: [...state.contacts, action.payload] };
     },
     deleteContact(state, action) {
