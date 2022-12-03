@@ -1,61 +1,44 @@
-import { useState, useEffect } from 'react';
 import shortid from 'shortid';
-import PropTypes from 'prop-types';
 import { PhoneBook } from './phonebook/PhoneBook';
 import ContactSearch from './phonebook-search/PhoneBookSearch';
 import ContactList from './phonebook-list/PhoneBookList';
+//
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from '../redux/contactsSlice';
+import { filterValue, contactValue } from 'redux/store';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  const dispatch = useDispatch();
+  const contacts = useSelector(contactValue);
+  const filter = useSelector(filterValue);
+
+  const onFiltredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
   );
-  const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const addContact = name => {
+    contacts.find(
+      contact => contact.name.toLowerCase() === name.name.toLowerCase()
+    )
+      ? alert(`${name.name} is already in contacts`)
+      : dispatch(addContacts(name));
+  };
 
-  const addContacts = data => {
-    const contact = {
-      name: data.name,
-      number: data.number,
-      id: shortid(),
-    };
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === data.name.toLowerCase()
-      )
-    ) {
-      alert(`${data.name} is already in contacts`);
-      return;
-    }
-    setContacts(prevState => [contact, ...prevState]);
-  };
-  const handleInputChange = e => {
-    setFilter(e.currentTarget.value);
-  };
-  const deleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId));
-  };
-  const normalizedFilter = filter.toLowerCase();
-  const getVisibleContact = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+  const handleSubmit = (values, { resetForm }) => {
+    values.id = shortid();
+    addContact(values);
+    resetForm();
   };
 
   return (
     <>
-      <PhoneBook onSubmit={addContacts} />
-      <ContactSearch filter={filter} onHandleInputChange={handleInputChange} />
-      <ContactList
-        contacts={getVisibleContact()}
-        onDeleteContact={deleteContact}
-      />
+      <PhoneBook handleSubmit={handleSubmit} />
+      <ContactSearch />
+      <ContactList contacts={onFiltredContacts} />
     </>
   );
 };
-App.propTypes = {
-  filter: PropTypes.string,
-  contacts: PropTypes.arrayOf(PropTypes.shape),
-};
+// App.propTypes = {
+//   filter: PropTypes.string,
+//   contacts: PropTypes.arrayOf(PropTypes.shape),
+// };

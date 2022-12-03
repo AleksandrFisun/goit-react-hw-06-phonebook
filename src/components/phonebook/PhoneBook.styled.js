@@ -1,30 +1,60 @@
 import styled from 'styled-components';
+import { Form, Field, ErrorMessage } from 'formik';
 
 export const Wraper = styled.div`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 `;
-export const Block = styled.div`
+export const FormContact = styled(Form)`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   align-items: center;
-  margin: 5px;
 `;
-export const ErrorText = styled.div`
+
+export const ErrorText = styled(ErrorMessage)`
   color: red;
   margin: 5px;
   padding: 5px;
   max-width: 400px;
   border: 1px solid red;
+  margin-top: 40px;
 `;
-export const ButtonAdd = styled.button`
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.15;
+`;
+
+export const Input = styled(Field)`
+  width: 300px;
+  height: 30px;
+  margin:5px;
+  border-radius: 4px;
+  border: none;
+  font-size:20px;
+  }
+
+  &:focus {
+  outline: none;
+  border-radius: 5px;
+  }
+`;
+
+export const Button = styled.button`
   text-decoration: none;
   display: inline-block;
   width: 220px;
@@ -52,3 +82,5 @@ export const ButtonAdd = styled.button`
     transform: translateY(-7px);
   }
 `;
+//
+//

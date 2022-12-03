@@ -1,19 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Item, Text, Button } from './PhoneBookList.styled';
-const ContactList = ({ contacts, onDeleteContact }) => (
-  <div>
-    <List>
-      {contacts.map(contact => (
-        <Item key={contact.id}>
-          <Text>{contact.name}</Text>
-          <Text>{contact.number}</Text>
-          <Button onClick={() => onDeleteContact(contact.id)}>Delete</Button>
-        </Item>
-      ))}
-    </List>
-  </div>
-);
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
+
+const ContactList = ({ contacts }) => {
+  const dispatch = useDispatch();
+  return (
+    <div>
+      <List>
+        {contacts.map(({ id, name, number }) => {
+          return (
+            <Item key={id}>
+              <Text>
+                {name}: {number}
+              </Text>
+              <Button type="button" onClick={() => dispatch(deleteContact(id))}>
+                Delete
+              </Button>
+            </Item>
+          );
+        })}
+      </List>
+    </div>
+  );
+};
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
@@ -23,6 +34,5 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onDeleteContact: PropTypes.func.isRequired,
 };
 export default ContactList;
